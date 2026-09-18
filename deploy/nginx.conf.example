@@ -1,0 +1,26 @@
+# Merge into the server block for your actual domain; configure HTTPS at your gateway.
+# Package files: /srv/opsark/downloads/OpsArk-Core-Setup.exe and OpsArk-Core.dmg
+server {
+    listen 80;
+    server_name your-domain.example;
+
+    location ^~ /downloads/ {
+        alias /srv/opsark/downloads/;
+        autoindex off;
+        types { }
+        default_type application/octet-stream;
+        add_header Content-Disposition "attachment";
+        add_header X-Content-Type-Options "nosniff" always;
+    }
+
+    location / {
+        proxy_pass http://127.0.0.1:5176;
+        proxy_http_version 1.1;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $remote_addr;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        client_max_body_size 32k;
+    }
+}
+# For this single trusted proxy use TRUST_PROXY_HOPS=1 and keep Node on 127.0.0.1.

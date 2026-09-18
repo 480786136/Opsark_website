@@ -1,0 +1,18 @@
+{
+  "channel": "preview",
+  "updatedAt": null,
+  "platforms": {
+    "macos": {
+      "available": false,
+      "url": "",
+      "package": "DMG",
+      "note": ""
+    },
+    "windows": {
+      "available": false,
+      "url": "",
+      "package": "NSIS",
+      "note": ""
+    }
+  }
+}
